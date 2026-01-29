@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="dopuna-nedeljnog-plana-nasledjivanje" author="Lazar">
+        <addColumn tableName="nedeljni_plan">
+            <column name="tip_nastave" type="VARCHAR(31)"/>
+        </addColumn>
+        
+        <addColumn tableName="nedeljni_plan">
+            <column name="opis" type="TEXT"/>
+        </addColumn>
+        <addColumn tableName="nedeljni_plan">
+            <column name="fond_casova" type="INT"/>
+        </addColumn>
+        <addColumn tableName="nedeljni_plan">
+            <column name="tip_prakse" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

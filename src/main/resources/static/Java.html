@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Header Grid</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script src="literatura.js"></script>
+<div class="page">
+    <div class="header-grid">
+        <div class="left-image">
+            <img src="slika1.png" alt="Leva slika">
+        </div>
+
+        <div class="text-top">
+            <div> УНИВЕРЗИТЕТ У БЕОГРАДУ, ФАКУЛТЕТ ОРГАНИЗАЦИОНИХ НАУКА </div>
+            <div> 11040 БЕОГРАД, ЈОВЕ ИЛИЋА 154 </div>
+        </div>
+
+        <div class="text-bottom">
+            <div class="main-title">Акредитација студијског програма</div>
+            <div class="bottom-row">
+                <div class="left">МАСТЕР АКАДЕМСКЕ СТУДИЈЕ (МАС)</div>
+                <div class="right">Софтверско инжењерство и вештачка<br>интелигенција</div>
+            </div>
+        </div>
+
+        <div class="right-image">
+            <img src="slika2.png" alt="Desna slika">
+        </div>
+    </div>
+
+    <div class="after-table">
+        Стандард 05. - Курикулум
+    </div>
+
+    <div class="after-table">
+        Табела 5.2 Спецификација предмета
+    </div>
+
+    <table class="main-table">
+        <tr>
+            <td class="label-cell">Студијски програм</td>
+            <td class="input-cell">
+                <select>
+                    <option>Odaberi studijski program</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label-cell">Назив предмета</td>
+            <td class="input-cell">
+                <select>
+                    <option>Odaberi predmet</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label-cell">Наставник/ци</td>
+            <td class="input-cell">
+                <select>
+                    <option>Додај наставника</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label-cell">Статус предмета</td>
+            <td class="input-cell">
+                <select>
+                    <option>Одабери статус</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label-cell">Број ЕСПБ</td>
+            <td class="input-cell">
+                <select>
+                    <option>Одабери ЕСПБ</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label-cell">Услов</td>
+            <td class="input-cell">
+                <select>
+                    <option>Одабери Услов</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label-cell">Предмети предуслови</td>
+            <td class="input-cell">
+                <select>
+                    <option>Одабери предуслов</option>
+                </select>
+            </td>
+        </tr>
+
+
+<tr class="full-row">
+    <td class="full-width-cell" colspan="2">
+        <div class="naslov-polje">
+            <div class="naslov">Циљ предмета</div>
+            <div class="tekst-polje" contenteditable="true"></div>
+        </div>
+    </td>
+</tr>
+
+<tr class="full-row">
+    <td class="full-width-cell" colspan="2">
+        <div class="naslov-polje">
+            <div class="naslov">Исход предмета</div>
+            <div class="tekst-polje" contenteditable="true"></div>
+        </div>
+    </td>
+</tr>
+
+
+<tr class="full-row">
+    <td class="full-width-cell" colspan="2">
+        Литература
+        <button type="button" onclick="addLiteratura()">Додај литературу</button>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="padding:0">
+        <table class="literatura-table" style="border-top:none;">
+            <thead>
+                <tr>
+                    <th>Р.бр</th>
+                    <th>Аутор-и</th>
+                    <th>Наслов</th>
+                    <th>Издавач</th>
+                    <th>Година</th>
+                </tr>
+            </thead>
+            <tbody id="literatura-body">
+            </tbody>
+        </table>
+
+<table class="nastava-table">
+    <thead>
+        <tr>
+            <th rowspan="2">Број часова активне наставе</th>
+            <th rowspan="2">Теоријска настава</th>
+            <th colspan="3">Практична настава</th>
+            <th rowspan="2">Остали Часови</th>
+        </tr>
+        <tr>
+            <th>Вежбе</th>
+            <th>Дон</th>
+            <th>Сир</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <!-- Broj časova: nema polja, samo ostaje prazan cell -->
+            <td></td>
+            <!-- Ostale kolone imaju polja za unos -->
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<tr class="full-row">
+    <td class="full-width-cell" colspan="2">
+        <div class="sadrzaj-container">
+            <div class="sadrzaj-placeholder">Методе извођења наставе</div>
+            <div class="sadrzaj-predmeta" contenteditable="true"></div>
+        </div>
+    </td>
+</tr>
+
+<table class="ocene-table">
+        <colgroup>
+        <col class="kolona-naziv">
+        <col class="kolona-obavezna">
+        <col class="kolona-poeni">
+        <col class="kolona-naziv">
+        <col class="kolona-obavezna">
+        <col class="kolona-poeni">
+    </colgroup>
+    <tr>
+        <td colspan="6" class="full-width-cell">Оцене знања (максимални број поена 100)</td>
+    </tr>
+    <tr>
+        <th>Предиспитне обавезе</th>
+        <th>Обавезна</th>
+        <th>Поена</th>
+        <th>Завршни испит</th>
+        <th>Обавезна</th>
+        <th>Поена</th>
+    </tr>
+    <tr>
+        <td contenteditable="true"></td>
+        <td contenteditable="true">Да/Не</td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+        <td contenteditable="true">Да/Не</td>
+        <td contenteditable="true"></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

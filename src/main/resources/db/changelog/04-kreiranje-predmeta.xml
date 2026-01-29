@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1-kreiranje-predmeta" author="lazar">
+        <createTable tableName="predmet">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="naziv" type="VARCHAR(255)"/>
+            <column name="espb" type="INT"/>
+            <column name="status" type="VARCHAR(50)"/>
+            <column name="uslov" type="TEXT"/>
+            
+            <column name="program_id" type="BIGINT">
+                <constraints foreignKeyName="fk_predmet_program" references="studijski_program(id)"/>
+            </column>
+            <column name="cilj_id" type="BIGINT">
+                <constraints foreignKeyName="fk_predmet_cilj" references="cilj_predmeta(id)"/>
+            </column>
+            <column name="fond_id" type="BIGINT">
+                <constraints foreignKeyName="fk_predmet_fond" references="fond_casova(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2-ishod-predmeta" author="lazar">
+        <createTable tableName="ishod_predmeta">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="opis" type="TEXT"/>
+            <column name="redni_broj" type="INT"/>
+            <column name="predmet_id" type="BIGINT">
+                <constraints foreignKeyName="fk_ishod_predmet" references="predmet(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3-predmet-nastavnik" author="lazar">
+        <createTable tableName="predmet_nastavnik">
+            <column name="predmet_id" type="BIGINT">
+                <constraints foreignKeyName="fk_pn_predmet" references="predmet(id)"/>
+            </column>
+            <column name="nastavnik_id" type="BIGINT">
+                <constraints foreignKeyName="fk_pn_nastavnik" references="nastavnik(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="4-predmet-literatura" author="lazar">
+        <createTable tableName="predmet_literatura">
+            <column name="predmet_id" type="BIGINT">
+                <constraints foreignKeyName="fk_pl_predmet" references="predmet(id)"/>
+            </column>
+            <column name="literatura_id" type="BIGINT">
+                <constraints foreignKeyName="fk_pl_literatura" references="literatura(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

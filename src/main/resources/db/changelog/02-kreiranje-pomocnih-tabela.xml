@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1-kreiranje-literature" author="lazar">
+        <createTable tableName="literatura">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="naslov" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="autor" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="izdavac" type="VARCHAR(255)"/>
+            <column name="godina" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2-kreiranje-fonda" author="lazar">
+        <createTable tableName="fond_casova">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="teorija" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vezbe" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="don" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ostalo" type="INT"/>
+            <column name="sir" type="INT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3-kreiranje-nastavnika" author="lazar">
+        <createTable tableName="nastavnik">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ime" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prezime" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zvanje_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_nastavnik_zvanje" references="zvanje(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

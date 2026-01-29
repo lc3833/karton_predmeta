@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="kreiranje-nedeljnog-plana" author="Lazar">
+        <createTable tableName="nedeljni_plan">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="broj_nedelje" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tema" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="predmet_id" type="BIGINT">
+                <constraints foreignKeyName="fk_plan_predmet" references="predmet(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
