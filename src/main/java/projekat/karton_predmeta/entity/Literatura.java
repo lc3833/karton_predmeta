@@ -1,5 +1,6 @@
 package projekat.karton_predmeta.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,4 +21,10 @@ public class Literatura {
 
     private String izdavac;
     private Integer godina;
+
+    // --- OVO JE FALILO ---
+    @ManyToOne
+    @JoinColumn(name = "predmet_id")
+    @JsonIgnore // Bitno: Da ne uđe u beskonačnu petlju kod čitanja JSON-a
+    private Predmet predmet;
 }

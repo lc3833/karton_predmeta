@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "nedeljni_plan")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Sve cuvamo u jednoj tabeli radi lakseg rada
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tip_nastave", discriminatorType = DiscriminatorType.STRING)
-public abstract class NedeljniPlan { // MORA BITI ABSTRACT PO DIJAGRAMU
+public abstract class NedeljniPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

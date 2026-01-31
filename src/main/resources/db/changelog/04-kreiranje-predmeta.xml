@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="1-kreiranje-predmeta" author="lazar">
+    <changeSet id="1-kreiranje-predmeta-v2" author="lazar">
         <createTable tableName="predmet">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
@@ -24,42 +24,52 @@
             <column name="fond_id" type="BIGINT">
                 <constraints foreignKeyName="fk_predmet_fond" references="fond_casova(id)"/>
             </column>
+            
+            <column name="nastavnik_id" type="BIGINT">
+                <constraints foreignKeyName="fk_predmet_nastavnik" references="nastavnik(id)"/>
+            </column>
+
+            <column name="ishod_id" type="BIGINT">
+                 </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="2-ishod-predmeta" author="lazar">
+    <changeSet id="2-ishod-predmeta-v2" author="lazar">
         <createTable tableName="ishod_predmeta">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="opis" type="TEXT"/>
             <column name="redni_broj" type="INT"/>
+            
             <column name="predmet_id" type="BIGINT">
                 <constraints foreignKeyName="fk_ishod_predmet" references="predmet(id)"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="3-predmet-nastavnik" author="lazar">
-        <createTable tableName="predmet_nastavnik">
-            <column name="predmet_id" type="BIGINT">
-                <constraints foreignKeyName="fk_pn_predmet" references="predmet(id)"/>
-            </column>
-            <column name="nastavnik_id" type="BIGINT">
-                <constraints foreignKeyName="fk_pn_nastavnik" references="nastavnik(id)"/>
-            </column>
-        </createTable>
+    <changeSet id="3-update-predmet-ishod" author="lazar">
+        <addForeignKeyConstraint baseTableName="predmet" 
+                                 baseColumnNames="ishod_id" 
+                                 constraintName="fk_predmet_ishod" 
+                                 referencedTableName="ishod_predmeta" 
+                                 referencedColumnNames="id"/>
     </changeSet>
-    
-    <changeSet id="4-predmet-literatura" author="lazar">
-        <createTable tableName="predmet_literatura">
+
+    <changeSet id="4-update-literatura" author="lazar">
+        <addColumn tableName="literatura">
             <column name="predmet_id" type="BIGINT">
-                <constraints foreignKeyName="fk_pl_predmet" references="predmet(id)"/>
+                <constraints foreignKeyName="fk_literatura_predmet" references="predmet(id)"/>
             </column>
-            <column name="literatura_id" type="BIGINT">
-                <constraints foreignKeyName="fk_pl_literatura" references="literatura(id)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5-update-obaveza" author="lazar">
+        <addColumn tableName="obaveza">
+            <column name="predmet_id" type="BIGINT">
+                <constraints foreignKeyName="fk_obaveza_predmet" references="predmet(id)"/>
             </column>
-        </createTable>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>
