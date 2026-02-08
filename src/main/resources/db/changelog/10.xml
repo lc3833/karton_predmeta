@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="dodavanje-metod-id-naknadno" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="predmet" columnName="metod_id"/>
+            </not>
+        </preConditions>
+
+        <addColumn tableName="predmet">
+            <column name="metod_id" type="BIGINT">
+                <constraints foreignKeyName="fk_predmet_metod" references="metod_izvodjenja(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
