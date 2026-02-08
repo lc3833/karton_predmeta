@@ -15,5 +15,6 @@
     <include file="db/changelog/08-nastava-tabele.xml"/>
     <include file="db/changelog/09-finalna-obrada.xml"/>
     <include file="db/changelog/10.xml"/>
+    <include file="db/changelog/11.xml"/>
 
 </databaseChangeLog>

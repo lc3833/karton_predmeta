@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="unos-zvanja-data" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM zvanje</sqlCheck>
+        </preConditions>
+        <insert tableName="zvanje">
+            <column name="id" valueNumeric="1"/>
+            <column name="naziv" value="редовни професор"/>
+        </insert>
+        <insert tableName="zvanje">
+            <column name="id" valueNumeric="2"/>
+            <column name="naziv" value="ванредни професор"/>
+        </insert>
+        <insert tableName="zvanje">
+            <column name="id" valueNumeric="3"/>
+            <column name="naziv" value="доцент"/>
+        </insert>
+        <insert tableName="zvanje">
+            <column name="id" valueNumeric="4"/>
+            <column name="naziv" value="асистент"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="unos-programa-data" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM studijski_program</sqlCheck>
+        </preConditions>
+        <insert tableName="studijski_program">
+            <column name="id" valueNumeric="1"/>
+            <column name="naziv" value="Софтверско инжењерство и вештачка интелигенција"/>
+        </insert>
+        <insert tableName="studijski_program">
+            <column name="id" valueNumeric="2"/>
+            <column name="naziv" value="Информациони системи и технологије"/>
+        </insert>
+        <insert tableName="studijski_program">
+            <column name="id" valueNumeric="3"/>
+            <column name="naziv" value="Менаџмент и организација"/>
+        </insert>
+        <insert tableName="studijski_program">
+            <column name="id" valueNumeric="4"/>
+            <column name="naziv" value="Операциони менаџмент"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="unos-nastavnika-data" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM nastavnik</sqlCheck>
+        </preConditions>
+        <insert tableName="nastavnik"><column name="ime" value="Владан"/><column name="prezime" value="Девеџић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Драган"/><column name="prezime" value="Ђурић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Јелена"/><column name="prezime" value="Јовановић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Саша"/><column name="prezime" value="Лазаревић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Оливера"/><column name="prezime" value="Михић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Милица"/><column name="prezime" value="Стојановић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Весна"/><column name="prezime" value="Тодорчевић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Синиша"/><column name="prezime" value="Влајић"/><column name="zvanje_id" valueNumeric="1"/></insert>
+
+        <insert tableName="nastavnik"><column name="ime" value="Небојша"/><column name="prezime" value="Николић"/><column name="zvanje_id" valueNumeric="2"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Душан"/><column name="prezime" value="Савић"/><column name="zvanje_id" valueNumeric="2"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Зоран"/><column name="prezime" value="Шеварац"/><column name="zvanje_id" valueNumeric="2"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Бојан"/><column name="prezime" value="Томић"/><column name="zvanje_id" valueNumeric="2"/></insert>
+
+        <insert tableName="nastavnik"><column name="ime" value="Илија"/><column name="prezime" value="Антовић"/><column name="zvanje_id" valueNumeric="3"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Марија"/><column name="prezime" value="Борићић"/><column name="zvanje_id" valueNumeric="3"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Душан"/><column name="prezime" value="Џамић"/><column name="zvanje_id" valueNumeric="3"/></insert>
+        <insert tableName="nastavnik"><column name="ime" value="Милош"/><column name="prezime" value="Милић"/><column name="zvanje_id" valueNumeric="3"/></insert>
+    </changeSet>
+
+    <changeSet id="unos-metoda-data" author="lazar">
+        <preConditions onFail="MARK_RAN">
+             <sqlCheck expectedResult="0">SELECT COUNT(*) FROM metod_izvodjenja</sqlCheck>
+        </preConditions>
+        <insert tableName="metod_izvodjenja"><column name="opis" value="Класична настава"/></insert>
+        <insert tableName="metod_izvodjenja"><column name="opis" value="Интерактивна настава"/></insert>
+    </changeSet>
+
+</databaseChangeLog>
