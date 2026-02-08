@@ -11,5 +11,8 @@
     <include file="db/changelog/04-kreiranje-predmeta.xml"/>
     <include file="db/changelog/05-kreiranje-nedeljnog-plana.xml"/>
     <include file="db/changelog/06-dopuna-nedeljnog-plana.xml"/>
+    <include file="db/changelog/07-nastavnici.xml"/>
+    <include file="db/changelog/08-nastava-tabele.xml"/>
+    <include file="db/changelog/09-finalna-obrada.xml"/>
 
 </databaseChangeLog>

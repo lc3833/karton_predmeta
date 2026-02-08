@@ -15,7 +15,6 @@ public class ZvanjeService {
         return repository.findAll();
     }
     
-    // Ovo ti treba da bi uopste mogao da ubacis "Docent", "Profesor" u bazu prvi put
     public Zvanje sacuvaj(Zvanje z) {
         return repository.save(z);
     }

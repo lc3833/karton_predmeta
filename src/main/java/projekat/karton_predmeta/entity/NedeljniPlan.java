@@ -7,9 +7,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "nedeljni_plan")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tip_nastave", discriminatorType = DiscriminatorType.STRING)
-public abstract class NedeljniPlan {
+public class NedeljniPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +16,17 @@ public abstract class NedeljniPlan {
     @Column(name = "broj_nedelje")
     private Integer brojNedelje;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "tema", columnDefinition = "TEXT")
     private String tema;
 
     @ManyToOne
     @JoinColumn(name = "predmet_id")
     @JsonIgnore
     private Predmet predmet;
+
+    @OneToOne(mappedBy = "nedeljniPlan", cascade = CascadeType.ALL)
+    private TeorijskaNastava teorijskaNastava;
+
+    @OneToOne(mappedBy = "nedeljniPlan", cascade = CascadeType.ALL)
+    private PrakticnaNastava prakticnaNastava;
 }

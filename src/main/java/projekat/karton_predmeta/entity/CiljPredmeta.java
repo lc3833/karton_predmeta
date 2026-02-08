@@ -1,5 +1,6 @@
 package projekat.karton_predmeta.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,6 +13,10 @@ public class CiljPredmeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String opis;
+
+    @OneToOne(mappedBy = "ciljPredmeta")
+    @JsonIgnore
+    private Predmet predmet;
 }

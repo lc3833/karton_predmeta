@@ -6,7 +6,4 @@ import projekat.karton_predmeta.entity.Predmet;
 
 @Repository
 public interface PredmetRepository extends JpaRepository<Predmet, Long> {
-    // Ovde cemo kasnije dodavati pretrage, npr:
-    // List<Predmet> findByEspbGreaterThan(int bodovi);
-    // Ali za sad je prazno sasvim dovoljno!
 }

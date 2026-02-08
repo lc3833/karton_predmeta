@@ -1,5 +1,6 @@
 package projekat.karton_predmeta.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,6 +13,10 @@ public class MetodIzvodjenja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 1000)
+    @Column(columnDefinition = "TEXT")
     private String opis;
+
+    @OneToOne(mappedBy = "metodIzvodjenja")
+    @JsonIgnore
+    private Predmet predmet;
 }

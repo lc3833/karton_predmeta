@@ -20,7 +20,6 @@ public class StudijskiProgramService {
         return repository.save(sp);
     }
     
-    // Trebace nam da nadjemo program po ID-u kad ga povezujemo sa predmetom
     public StudijskiProgram nadjiPoIdu(Long id) {
         return repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Program nije pronadjen"));

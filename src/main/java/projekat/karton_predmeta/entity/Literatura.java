@@ -22,9 +22,8 @@ public class Literatura {
     private String izdavac;
     private Integer godina;
 
-    // --- OVO JE FALILO ---
     @ManyToOne
     @JoinColumn(name = "predmet_id")
-    @JsonIgnore // Bitno: Da ne uđe u beskonačnu petlju kod čitanja JSON-a
+    @JsonIgnore
     private Predmet predmet;
 }

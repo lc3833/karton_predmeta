@@ -1,5 +1,6 @@
 package projekat.karton_predmeta.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,11 +16,9 @@ public class IshodPredmeta {
     @Column(columnDefinition = "TEXT")
     private String opis;
 
-    @Column(name = "redni_broj")
-    private Integer redniBroj;
+    // OBRISALI SMO redniBroj JER GA NEMA VIŠE U BAZI
 
-    // Veza: Svaki ishod pripada jednom predmetu
-    @ManyToOne
-    @JoinColumn(name = "predmet_id")
+    @OneToOne(mappedBy = "ishodPredmeta")
+    @JsonIgnore
     private Predmet predmet;
 }

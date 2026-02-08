@@ -1,14 +1,17 @@
 package projekat.karton_predmeta.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@DiscriminatorValue("PRAKSA")
-public class PrakticnaNastava extends NedeljniPlan {
+@Table(name = "prakticna_nastava")
+public class PrakticnaNastava {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(columnDefinition = "TEXT")
     private String opis;
@@ -16,7 +19,11 @@ public class PrakticnaNastava extends NedeljniPlan {
     @Column(name = "fond_casova")
     private Integer fondCasova;
 
-    // Ovo je onaj tip %(Vezbe, DON, SIR) sa dijagrama
     @Column(name = "tip_prakse")
-    private String tip; 
+    private String tip;
+
+    @OneToOne
+    @JoinColumn(name = "nedeljni_plan_id")
+    @JsonIgnore
+    private NedeljniPlan nedeljniPlan;
 }

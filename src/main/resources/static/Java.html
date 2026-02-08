@@ -39,13 +39,13 @@
     <div class="after-table">
         Табела 5.2 Спецификација предмета
     </div>
-
+	<div style="margin-bottom: 20px;"></div>
     <table class="main-table">
         <tr>
             <td class="label-cell">Студијски програм</td>
             <td class="input-cell">
                 <select id="studijskiProgram">
-                    <option value="">Odaberi studijski program</option>
+                    <option value="">Одабери студијски програм</option>
                 </select>
             </td>
         </tr>
@@ -53,7 +53,7 @@
         <tr>
             <td class="label-cell">Назив предмета</td>
             <td class="input-cell">
-                <input type="text" id="nazivPredmeta" style="width:100%; border:none;" placeholder="Upiši naziv predmeta">
+                <input type="text" id="nazivPredmeta" style="width:100%; border:none;" placeholder="Упиши назив предмета">
             </td>
         </tr>
 
@@ -61,7 +61,7 @@
             <td class="label-cell">Наставник/ци</td>
             <td class="input-cell">
                 <select id="nastavnik">
-                    <option value="">Odaberi nastavnika</option>
+                    <option value="">Одабери наставника</option>
                 </select>
             </td>
         </tr>
@@ -70,16 +70,16 @@
             <td class="label-cell">Статус предмета</td>
             <td class="input-cell">
                 <select id="statusPredmeta">
-                    <option value="">Odaberi status</option>
+                    <option value="">Одабери статус</option>
                 </select>
             </td>
         </tr>
 
         <tr>
-            <td class="label-cell">Број ЕСПБ</td>
+            <td class="label-cell">Број ЕСПБ бодова</td>
             <td class="input-cell">
                 <select id="espb">
-                    <option value="">Odaberi ESPB</option>
+                    <option value="">Одабери ЕСПБ бодове</option>
                 </select>
             </td>
         </tr>
@@ -87,7 +87,7 @@
         <tr>
             <td class="label-cell">Услов</td>
             <td class="input-cell">
-                <input type="text" id="uslov" style="width:100%; border:none;" placeholder="Upiši uslov (npr. Nema)">
+                <input type="text" id="uslov" style="width:100%; border:none;" placeholder="Упиши услов (нпр. Нема)">
             </td>
         </tr>
 
@@ -95,7 +95,7 @@
             <td class="label-cell">Предмети предуслови</td>
             <td class="input-cell">
                 <select id="preduslov">
-                    <option value="">Nema ili Odaberi predmet</option>
+                    <option value="">Нема (или Одабери предмет из падајућег менија)</option>
                 </select>
             </td>
         </tr>
@@ -104,7 +104,7 @@
         <tr class="full-row">
             <td class="full-width-cell" colspan="2">
                 <div class="naslov-polje">
-                    <div class="naslov">Циљ предмета</div>
+                    <div class="naslov">Циљ предмета<br><br></div>
                     <div class="tekst-polje" contenteditable="true"></div>
                 </div>
             </td>
@@ -113,12 +113,32 @@
         <tr class="full-row">
             <td class="full-width-cell" colspan="2">
                 <div class="naslov-polje">
-                    <div class="naslov">Исход предмета</div>
+                    <div class="naslov">Исход предмета<br><br></div>
                     <div class="tekst-polje" contenteditable="true"></div>
                 </div>
             </td>
         </tr>
 
+		<tr class="full-row">
+			<td class="full-width-cell" colspan="2">
+				<div class="naslov-polje">
+					<div class="naslov">
+						Садржај предмета<br>
+						<br>
+						План рада по недељама:
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+        <tr>
+            <td colspan="2" style="padding: 0;">
+                <table class="main-table" style="width: 100%; border: none;">
+                    <tbody id="nedeljni-plan-body">
+                        </tbody>
+                </table>
+            </td>
+        </tr>
 
         <tr class="full-row">
             <td class="full-width-cell" colspan="2">
@@ -129,7 +149,7 @@
 
         <tr>
             <td colspan="2" style="padding:0">
-                <table class="literatura-table" style="border-top:none;">
+                <table class="literatura-table" style="border-top:none; width: 100%;">
                     <thead>
                         <tr>
                             <th>Р.бр</th>
@@ -143,24 +163,23 @@
                     </tbody>
                 </table>
 
-                <table class="nastava-table">
+                <table class="nastava-table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th rowspan="2" style="border-bottom: none;">Број часова активне наставе</th>
                             <th rowspan="2">Теоријска настава</th>
                             <th colspan="3">Практична настава</th>
-                            <th rowspan="2">Остали Часови</th>
+                            <th rowspan="2">Остали часови</th>
                         </tr>
                         <tr>
                             <th>Вежбе</th>
-                            <th>Дон</th>
-                            <th>Сир</th>
+                            <th>ДОН</th>
+                            <th>СИР</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td style="border-top: none;"></td>
-                            
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
@@ -169,56 +188,77 @@
                         </tr>
                     </tbody>
                 </table>
-
-
-
-        <tr class="full-row">
+            </td>
+        </tr> <tr class="full-row">
             <td class="full-width-cell" colspan="2">
                 <div class="sadrzaj-container">
-                    <div class="sadrzaj-placeholder">Методе извођења наставе</div>
-                    <div class="sadrzaj-predmeta" contenteditable="true"></div>
+                    <div class="sadrzaj-placeholder">Методе извођења наставе<br><br></div>
+                    <div class="sadrzaj-predmeta" contenteditable="true" style="min-height: 50px;"></div>
                 </div>
             </td>
         </tr>
 
-        <table class="ocene-table">
-            <colgroup>
-                <col class="kolona-naziv">
-                <col class="kolona-obavezna">
-                <col class="kolona-poeni">
-                <col class="kolona-naziv">
-                <col class="kolona-obavezna">
-                <col class="kolona-poeni">
-            </colgroup>
-            <tr>
-                <td colspan="6" class="full-width-cell">Оцене знања (максимални број поена 100)</td>
-            </tr>
-            <tr>
-                <th>Предиспитне обавезе</th>
-                <th>Обавезна</th>
-                <th>Поена</th>
-                <th>Завршни испит</th>
-                <th>Обавезна</th>
-                <th>Поена</th>
-            </tr>
-            <tr>
-                <td contenteditable="true"></td>
-                <td contenteditable="true">Да/Не</td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true"></td>
-                <td contenteditable="true">Да/Не</td>
-                <td contenteditable="true"></td>
-            </tr>
-        </table>
+        <tr>
+            <td colspan="2" style="padding: 0;">
+                <table class="ocene-table" style="width: 100%;">
+                    <colgroup>
+                        <col class="kolona-naziv">
+                        <col class="kolona-obavezna">
+                        <col class="kolona-poeni">
+                        <col class="kolona-naziv">
+                        <col class="kolona-obavezna">
+                        <col class="kolona-poeni">
+                    </colgroup>
+                    <tr>
+                        <td colspan="6" class="full-width-cell">Оцене знања (максимални број поена 100)</td>
+                    </tr>
+                    <tr>
+                        <th>Предиспитне обавезе</th>
+                        <th>Обавезна</th>
+                        <th>Поена</th>
+                        <th>Завршни испит</th>
+                        <th>Обавезна</th>
+                        <th>Поена</th>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true">Да/Не</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true">Да/Не</td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
     </table> </div>
 
-    <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-        <button onclick="sacuvajKarton()" style="padding: 15px 30px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-            💾 SAČUVAJ KARTON PREDMETA
-        </button>
-    </div>
+<div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+    <button onclick="sacuvajKarton()" style="padding: 15px 30px; background-color: #800517; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+        САЧУВАЈ КАРТОН ПРЕДМЕТА
+    </button>
+</div>
 
 <script src="logika.js"></script>
+<script src="nastavnici.js"></script>
+
+<script>
+    const planBody = document.getElementById('nedeljni-plan-body');
+    if (planBody) {
+        planBody.innerHTML = "";
+        for (let i = 1; i <= 13; i++) {
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="width: 50px; text-align: center; font-weight: bold; border: 1px solid #ccc;">${i}.</td>
+                <td style="border: 1px solid #ccc; padding: 0;">
+                    <input type="text" class="nedelja-input" placeholder="Унеси тему за ${i}. недељу" style="width: 100%; height: 100%; border: none; padding: 10px; box-sizing: border-box; font-family: inherit;">
+                </td>
+            `;
+            planBody.appendChild(tr);
+        }
+    }
+</script>
 
 </body>
 </html>

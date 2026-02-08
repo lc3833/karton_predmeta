@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="prelazak-na-listu-nastavnika" author="lazar">
+        
+        <dropForeignKeyConstraint baseTableName="predmet" constraintName="fk_predmet_nastavnik"/>
+        
+        <dropColumn tableName="predmet" columnName="nastavnik_id"/>
+
+
+        <createTable tableName="predmet_nastavnik">
+            <column name="predmet_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_veza_predmet" references="predmet(id)"/>
+            </column>
+            
+            <column name="nastavnik_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_veza_nastavnik" references="nastavnik(id)"/>
+            </column>
+        </createTable>
+        
+        <addPrimaryKey tableName="predmet_nastavnik" 
+                       columnNames="predmet_id, nastavnik_id" 
+                       constraintName="pk_predmet_nastavnik_veza"/>
+
+    </changeSet>
+
+</databaseChangeLog>

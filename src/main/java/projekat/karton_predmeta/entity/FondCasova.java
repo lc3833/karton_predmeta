@@ -1,5 +1,6 @@
 package projekat.karton_predmeta.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,10 +12,13 @@ public class FondCasova {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Integer teorija;
+    private Integer vezbe;
+    private Integer don;
+    private Integer sir;
+    private Integer ostalo;
 
-    private int teorija;
-    private int vezbe;
-    private int don;
-    private int ostalo;
-    private int sir;
+    @OneToOne(mappedBy = "fondCasova")
+    @JsonIgnore
+    private Predmet predmet;
 }

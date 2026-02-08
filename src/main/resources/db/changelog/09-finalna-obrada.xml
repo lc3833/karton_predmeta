@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="brisanje-fk-ishod" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <foreignKeyConstraintExists foreignKeyName="fk_ishod_predmet" foreignKeyTableName="ishod_predmeta"/>
+        </preConditions>
+        <dropForeignKeyConstraint baseTableName="ishod_predmeta" constraintName="fk_ishod_predmet"/>
+    </changeSet>
+
+    <changeSet id="ciscenje-ishod-kolona" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="ishod_predmeta" columnName="predmet_id"/>
+        </preConditions>
+        <dropColumn tableName="ishod_predmeta" columnName="predmet_id"/>
+        <dropColumn tableName="ishod_predmeta" columnName="redni_broj"/>
+    </changeSet>
+
+    <changeSet id="ciscenje-nedeljni-plan-smart" author="lazar">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="nedeljni_plan" columnName="tip_nastave"/>
+        </preConditions>
+        <dropColumn tableName="nedeljni_plan" columnName="tip_nastave"/>
+        <dropColumn tableName="nedeljni_plan" columnName="opis"/>
+        <dropColumn tableName="nedeljni_plan" columnName="fond_casova"/>
+        <dropColumn tableName="nedeljni_plan" columnName="tip_prakse"/>
+    </changeSet>
+
+    <changeSet id="prevod-programa-cirilica" author="lazar">
+        <update tableName="studijski_program">
+            <column name="naziv" value="Софтверско инжењерство и вештачка интелигенција"/>
+            <where>id = 1</where>
+        </update>
+        <update tableName="studijski_program">
+            <column name="naziv" value="Информациони системи и технологије"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="studijski_program">
+            <column name="naziv" value="Менаџмент и организација"/>
+            <where>id = 3</where>
+        </update>
+        <update tableName="studijski_program">
+            <column name="naziv" value="Операциони менаџмент"/>
+            <where>id = 4</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="prevod-zvanja-cirilica" author="lazar">
+        <update tableName="zvanje">
+            <column name="naziv" value="редовни професор"/>
+            <where>id = 1</where>
+        </update>
+        <update tableName="zvanje">
+            <column name="naziv" value="ванредни професор"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="zvanje">
+            <column name="naziv" value="доцент"/>
+            <where>id = 3</where>
+        </update>
+        <update tableName="zvanje">
+            <column name="naziv" value="асистент"/>
+            <where>id = 4</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
