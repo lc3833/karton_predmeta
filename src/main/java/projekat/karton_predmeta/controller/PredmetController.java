@@ -46,18 +46,30 @@ public class PredmetController {
             for (NedeljniPlan np : predmet.getNedeljniPlan()) {
                 np.setPredmet(predmet);
 
-                TeorijskaNastava tn = new TeorijskaNastava();
-                tn.setOpis("Теорија: " + np.getTema());
-                tn.setFondCasova(satiTeorije);
-                tn.setNedeljniPlan(np); 
-                np.setTeorijskaNastava(tn); 
+                if (np.getTeorijskaNastava() == null) {
+                    TeorijskaNastava tn = new TeorijskaNastava();
+                    tn.setOpis("Теорија: " + np.getTema());
+                    tn.setFondCasova(satiTeorije);
+                    tn.setNedeljniPlan(np); 
+                    np.setTeorijskaNastava(tn); 
+                } else {
+                    np.getTeorijskaNastava().setOpis("Теорија: " + np.getTema());
+                    np.getTeorijskaNastava().setFondCasova(satiTeorije);
+                    np.getTeorijskaNastava().setNedeljniPlan(np);
+                }
 
-                PrakticnaNastava pn = new PrakticnaNastava();
-                pn.setOpis("Вежбе: " + np.getTema());
-                pn.setFondCasova(satiVezbi);
-                pn.setTip("Вежбе/ДОН");
-                pn.setNedeljniPlan(np); 
-                np.setPrakticnaNastava(pn); 
+                if (np.getPrakticnaNastava() == null) {
+                    PrakticnaNastava pn = new PrakticnaNastava();
+                    pn.setOpis("Вежбе: " + np.getTema());
+                    pn.setFondCasova(satiVezbi);
+                    pn.setTip("Вежбе/ДОН");
+                    pn.setNedeljniPlan(np); 
+                    np.setPrakticnaNastava(pn); 
+                } else {
+                    np.getPrakticnaNastava().setOpis("Вежбе: " + np.getTema());
+                    np.getPrakticnaNastava().setFondCasova(satiVezbi);
+                    np.getPrakticnaNastava().setNedeljniPlan(np);
+                }
             }
         }
 
@@ -78,6 +90,12 @@ public class PredmetController {
         if (predmet.getFondCasova() != null) predmet.getFondCasova().setPredmet(predmet);
 
         return predmetService.sacuvajPredmet(predmet);
+    }
+
+    @PutMapping("/{id}")
+    public Predmet azurirajPredmet(@PathVariable Long id, @RequestBody Predmet predmet) {
+        predmet.setId(id);
+        return this.sacuvajPredmet(predmet); 
     }
     
     @DeleteMapping("/{id}")

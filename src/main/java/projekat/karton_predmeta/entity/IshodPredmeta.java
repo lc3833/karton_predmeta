@@ -16,8 +16,6 @@ public class IshodPredmeta {
     @Column(columnDefinition = "TEXT")
     private String opis;
 
-    // OBRISALI SMO redniBroj JER GA NEMA VIŠE U BAZI
-
     @OneToOne(mappedBy = "ishodPredmeta")
     @JsonIgnore
     private Predmet predmet;

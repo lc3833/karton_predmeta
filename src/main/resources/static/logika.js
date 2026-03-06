@@ -104,60 +104,76 @@ function sacuvajKarton() {
     let zavrsniObavezan = tekstZavrsni.includes("d") || tekstZavrsni.includes("\u0434");
     let listaNastavnikaZaSlanje = window.izabraniNastavniciIds.map(id => ({ id: id }));
 
-    let predmet = {
-        naziv: document.getElementById("nazivPredmeta").value,
-        status: document.getElementById("statusPredmeta").value,
-        espb: parseInt(document.getElementById("espb").value),
-        uslov: document.getElementById("uslov").value,
-        studijskiProgram: { id: document.getElementById("studijskiProgram").value },
-        nastavnici: listaNastavnikaZaSlanje,
-        
-        ciljPredmeta: { 
-            opis: document.querySelector(".naslov-polje:nth-of-type(1) .tekst-polje").innerText 
-        },
-        ishodPredmeta: { 
-             opis: document.querySelectorAll(".naslov-polje .tekst-polje")[1].innerText 
-        },
-        metodIzvodjenja: {
-            opis: document.querySelector(".sadrzaj-predmeta").innerText
-        },
-        fondCasova: {
-            teorija: teorija, vezbe: vezbe, don: don, sir: sir, ostalo: ostalo
-        },
-        obaveze: [
-            {
-                tip: "PREDISPITNA",
-                opisAktivnosti: celijeOcena[0].innerText,
-                obavezna: predispitnaObavezna,
-                poeni: poeniPredispitne
-            },
-            {
-                tip: "ZAVRSNI",
-                formatIspita: celijeOcena[3].innerText,
-                obavezna: zavrsniObavezan,
-                poeni: poeniZavrsni
-            }
-        ]
-    };
+    let urlParams = new URLSearchParams(window.location.search);
+    let currentId = urlParams.get('id');
 
-    let nedeljniPlanLista = [];
-    let inputiNedelja = document.querySelectorAll(".nedelja-input");
+    let predmet = window.ucitaniPredmet || {};
+
+    if (currentId) {
+        predmet.id = parseInt(currentId);
+    }
+
+    predmet.naziv = document.getElementById("nazivPredmeta").value;
+    predmet.status = document.getElementById("statusPredmeta").value;
+    predmet.espb = parseInt(document.getElementById("espb").value);
+    predmet.uslov = document.getElementById("uslov").value;
+    predmet.studijskiProgram = { id: parseInt(document.getElementById("studijskiProgram").value) };
+    predmet.nastavnici = listaNastavnikaZaSlanje;
     
+    if (!predmet.ciljPredmeta) predmet.ciljPredmeta = {};
+    predmet.ciljPredmeta.opis = document.querySelector(".naslov-polje:nth-of-type(1) .tekst-polje").innerText;
+
+    if (!predmet.ishodPredmeta) predmet.ishodPredmeta = {};
+    predmet.ishodPredmeta.opis = document.querySelectorAll(".naslov-polje .tekst-polje")[1].innerText;
+
+    if (!predmet.metodIzvodjenja) predmet.metodIzvodjenja = {};
+    predmet.metodIzvodjenja.opis = document.querySelector(".sadrzaj-predmeta").innerText;
+
+    if (!predmet.fondCasova) predmet.fondCasova = {};
+    predmet.fondCasova.teorija = teorija;
+    predmet.fondCasova.vezbe = vezbe;
+    predmet.fondCasova.don = don;
+    predmet.fondCasova.sir = sir;
+    predmet.fondCasova.ostalo = ostalo;
+
+    if (!predmet.obaveze || predmet.obaveze.length === 0) {
+        predmet.obaveze = [{ tip: "PREDISPITNA" }, { tip: "ZAVRSNI" }];
+    }
+    let predObaveza = predmet.obaveze.find(o => o.tip === 'PREDISPITNA') || predmet.obaveze[0] || { tip: "PREDISPITNA" };
+    predObaveza.opisAktivnosti = celijeOcena[0].innerText;
+    predObaveza.obavezna = predispitnaObavezna;
+    predObaveza.poeni = poeniPredispitne;
+
+    let zavObaveza = predmet.obaveze.find(o => o.tip === 'ZAVRSNI') || predmet.obaveze[1] || { tip: "ZAVRSNI" };
+    zavObaveza.formatIspita = celijeOcena[3].innerText;
+    zavObaveza.obavezna = zavrsniObavezan;
+    zavObaveza.poeni = poeniZavrsni;
+
+    predmet.obaveze = [predObaveza, zavObaveza];
+
+    let inputiNedelja = document.querySelectorAll(".nedelja-input");
     if(inputiNedelja.length > 0) {
+        if (!predmet.nedeljniPlan) predmet.nedeljniPlan = [];
         inputiNedelja.forEach((input, index) => {
-            nedeljniPlanLista.push({
-                brojNedelje: index + 1,
-                tema: input.value || "Није дефинисано"
-            });
+            let np = predmet.nedeljniPlan.find(p => p.brojNedelje === (index + 1));
+            if (np) {
+                np.tema = input.value || "Није дефинисано";
+            } else {
+                predmet.nedeljniPlan.push({
+                    brojNedelje: index + 1,
+                    tema: input.value || "Није дефинисано"
+                });
+            }
         });
-        predmet.nedeljniPlan = nedeljniPlanLista;
     }
 
     let literaturaLista = [];
-    document.querySelectorAll("#literatura-body tr").forEach(row => {
+    document.querySelectorAll("#literatura-body tr").forEach((row, index) => {
         let inputs = row.querySelectorAll("input");
         if(inputs.length > 0) {
+            let staraLit = (predmet.literatura && predmet.literatura[index]) ? predmet.literatura[index] : {};
             literaturaLista.push({
+                id: staraLit.id || null, 
                 autor: inputs[0].value,
                 naslov: inputs[1].value,
                 izdavac: inputs[2].value,
@@ -169,14 +185,18 @@ function sacuvajKarton() {
 
     console.log("Šaljem JSON:", predmet); 
 
-    fetch('/api/predmeti', {
-        method: 'POST',
+    let metoda = currentId ? 'PUT' : 'POST';
+    let url = currentId ? '/api/predmeti/' + currentId : '/api/predmeti';
+
+    fetch(url, {
+        method: metoda,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(predmet)
     })
     .then(response => {
         if (response.ok) {
             alert("УСПЕШНО САЧУВАНО!");
+            window.location.href = 'lista.html';
             return response.json(); 
         } else {
             alert("Грешка! Провери конзолу (F12).");
@@ -184,4 +204,11 @@ function sacuvajKarton() {
         }
     })
     .catch(error => console.error('Greška:', error));
+}
+
+function nazadNaListu() {
+    let potvrda = confirm("Уколико напустите страницу без чувања, изгубићете овај картон предмета. Да ли сте сигурни да желите да се вратите назад?");
+    if (potvrda) {
+        window.location.href = "lista.html";
+    }
 }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Листа Предмета</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Додатни CSS специфичан за табелу */
+        .tabela-predmeta { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: "Microsoft Sans Serif", sans-serif; }
+        .tabela-predmeta th, .tabela-predmeta td { border: 1px solid black; padding: 10px; text-align: left; font-size: 10pt; vertical-align: middle; }
+        .tabela-predmeta th { background-color: #ccccff; font-weight: bold; text-align: center; }
+        
+        .akcije-kontejner { display: flex; justify-content: center; gap: 8px; }
+        
+        .btn-izmeni { flex: 1; background-color: #007bff; color: white; border: 1px solid #0056b3; padding: 7px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.2s; }
+        .btn-obrisi { flex: 1; background-color: #dc3545; color: white; border: 1px solid #a71d2a; padding: 7px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.2s; }
+        
+        .btn-izmeni:hover { background-color: #0056b3; }
+        .btn-obrisi:hover { background-color: #c82333; }
+        
+        /* ДУГМЕ ЗА ДОДАВАЊЕ - У боји заглавља табеле */
+        .btn-dodaj { padding: 10px 20px; background-color: #ccccff; color: black; border: 1px solid black; border-radius: 5px; cursor: pointer; font-size: 12pt; font-weight: bold; transition: 0.2s; }
+        .btn-dodaj:hover { background-color: #b3b3ff; }
+        
+        .header-naslov { text-align: center; margin-bottom: 20px; font-family: "Microsoft Sans Serif", sans-serif; font-size: 16pt; font-weight: bold; color: #800517; }
+    </style>
+</head>
+<body>
+
+<div class="top-header">
+    <div class="header-info">
+        <strong>КАРТОН ПРЕДМЕТА - ЕВИДЕНЦИЈА</strong><br>
+        <strong>Лазар Цветковић (2025/3833), Матеја Лазић (2025/3830)</strong>
+    </div>
+    <div style="font-style: italic; font-size: 12pt; font-weight: bold; color: rgba(255,255,255,0.7);">
+        ФАКУЛТЕТ ОРГАНИЗАЦИОНИХ НАУКА - СОФТВЕРСКО ИНЖЕЊЕРСТВО И ВЕШТАЧКА ИНТЕЛИГЕНЦИЈA
+    </div>
+</div>
+
+<div class="page">
+    <div class="header-naslov">Приказ картона предмета</div>
+    
+    <div style="text-align: right; margin-bottom: 15px;">
+        <button class="btn-dodaj" onclick="window.location.href='Java.html'">+ Додај нови предмет</button>
+    </div>
+    
+    <table class="tabela-predmeta">
+        <thead>
+            <tr>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 35%;">Назив предмета</th>
+                <th style="width: 10%;">ЕСПБ</th>
+                <th style="width: 30%;">Студијски програм</th>
+                <th style="width: 20%;">Акције</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-body">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", ucitajPredmete);
+
+    function ucitajPredmete() {
+        fetch('/api/predmeti')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('tabela-body');
+                tbody.innerHTML = ''; 
+
+                data.forEach(predmet => {
+                    const tr = document.createElement('tr');
+                    let nazivPrograma = predmet.studijskiProgram ? predmet.studijskiProgram.naziv : "Непознато";
+
+                    tr.innerHTML = `
+                        <td style="text-align: center;">${predmet.id}</td>
+                        <td><strong>${predmet.naziv}</strong></td>
+                        <td style="text-align: center;">${predmet.espb}</td>
+                        <td>${nazivPrograma}</td>
+                        <td style="text-align: center;">
+                            <div class="akcije-kontejner">
+                                <button class="btn-izmeni" onclick="izmeniPredmet(${predmet.id})">Измени</button>
+                                <button class="btn-obrisi" onclick="obrisiPredmet(${predmet.id})">Обриши</button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => console.error('Грешка при учитавању предмета:', error));
+    }
+
+    function obrisiPredmet(id) {
+        if (confirm("Да ли сте сигурни да желите да обришете овај картон предмета?")) {
+            fetch('/api/predmeti/' + id, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Предмет је успешно обрисан!");
+                    ucitajPredmete(); 
+                } else {
+                    alert("Дошло је до грешке приликом брисања!");
+                }
+            })
+            .catch(error => console.error('Грешка:', error));
+        }
+    }
+
+    function izmeniPredmet(id) {
+        window.location.href = 'izmena.html?id=' + id;
+    }
+</script>
+</body>
+</html>
